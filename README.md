@@ -1,12 +1,12 @@
 # Firecracker microVM setup
 
-This repo documents a complete setup for running Firecracker microVMs on an AlmaLinux 10 host: one TAP device and a /30 subnet per project, LAN-reachable SSH via a host port (DNAT), key-only auth and metadata-driven bootstrap (Step 5), and optional Envoy TPROXY on the host for egress control (see [build/ideas/Step06-Envoy-TPROXY.md](build/ideas/Step06-Envoy-TPROXY.md)).
+This repo documents a complete setup for running Firecracker microVMs on an AlmaLinux 10 host: one TAP device and a /30 subnet per project, LAN-reachable SSH via a host port (DNAT), key-only auth and metadata-driven bootstrap (Step 5), and optional Envoy TPROXY on the host for egress control (see [ideas/Step06-Envoy-TPROXY.md](ideas/Step06-Envoy-TPROXY.md)).
 
 ## Prerequisites (quick checklist)
 
-- **KVM** and host packages (IP forwarding, firewall, iproute, iptables, etc.) — [build/Step01.md](build/Step01.md)
-- **Firecracker and jailer** installed under `/usr/local/bin` and directory layout — [build/Step02.md](build/Step02.md)
-- **Networking scripts** (`microvm-net-up.sh` / `microvm-net-down.sh`) and TAP/NAT/SSH port forwarding — [build/Step03.md](build/Step03.md)
+- **KVM** and host packages (IP forwarding, firewall, iproute, iptables, etc.) — [Step01.md](Step01.md)
+- **Firecracker and jailer** installed under `/usr/local/bin` and directory layout — [Step02.md](Step02.md)
+- **Networking scripts** (`microvm-net-up.sh` / `microvm-net-down.sh`) and TAP/NAT/SSH port forwarding — [Step03.md](Step03.md)
 
 ## Architecture: multiple microVMs on one host
 
@@ -66,19 +66,19 @@ flowchart LR
 
 | Step | Document | Description |
 |------|----------|-------------|
-| 1 | [build/Step01.md](build/Step01.md) | Prepare the AlmaLinux 10 host |
-| 2 | [build/Step02.md](build/Step02.md) | Install Firecracker (and jailer) |
-| 3 | [build/Step03.md](build/Step03.md) | Host networking (TAP, /30, NAT, SSH port) |
-| 4 | [build/Step04.md](build/Step04.md) | MicroVM runsheet (kernel, rootfs, boot, logging) |
-| 5 | [build/Step05.md](build/Step05.md) | Key-only SSH and metadata-driven bootstrap |
-| 6 (optional) | [build/ideas/Step06-Envoy-TPROXY.md](build/ideas/Step06-Envoy-TPROXY.md) | Envoy TPROXY egress control |
+| 1 | [Step01.md](Step01.md) | Prepare the AlmaLinux 10 host |
+| 2 | [Step02.md](Step02.md) | Install Firecracker (and jailer) |
+| 3 | [Step03.md](Step03.md) | Host networking (TAP, /30, NAT, SSH port) |
+| 4 | [Step04.md](Step04.md) | MicroVM runsheet (kernel, rootfs, boot, logging) |
+| 5 | [Step05.md](Step05.md) | Key-only SSH and metadata-driven bootstrap |
+| 6 (optional) | [ideas/Step06-Envoy-TPROXY.md](ideas/Step06-Envoy-TPROXY.md) | Envoy TPROXY egress control |
 
 ### Scripts
 
-- **Step runners:** [build/run-step01.sh](build/run-step01.sh) … [build/run-step05.sh](build/run-step05.sh) — run or automate the corresponding step (see each StepNN.md for usage).
-- **Networking:** `microvm-net-up.sh` / `microvm-net-down.sh` — create/tear down per-project TAP, NAT, and SSH DNAT (in the build directory or installed to `/usr/local/sbin`; see [build/Step03.md](build/Step03.md)).
-- **MicroVM management:** [build/microvm-list-all.sh](build/microvm-list-all.sh), [build/microvm-stop-one.sh](build/microvm-stop-one.sh), [build/microvm-stop-all.sh](build/microvm-stop-all.sh), [build/microvm-cleanup-all.sh](build/microvm-cleanup-all.sh) — list, stop, or clean up running microVMs.
+- **Step runners:** [run-step01.sh](run-step01.sh) … [run-step05.sh](run-step05.sh) — run or automate the corresponding step (see each StepNN.md for usage).
+- **Networking:** `microvm-net-up.sh` / `microvm-net-down.sh` — create/tear down per-project TAP, NAT, and SSH DNAT (in this directory or installed to `/usr/local/sbin`; see [Step03.md](Step03.md)).
+- **MicroVM management:** [microvm-list-all.sh](microvm-list-all.sh), [microvm-stop-one.sh](microvm-stop-one.sh), [microvm-stop-all.sh](microvm-stop-all.sh), [microvm-cleanup-all.sh](microvm-cleanup-all.sh) — list, stop, or clean up running microVMs.
 
 ## Quick start
 
-Run the steps in order. Use `build/run-step0N.sh` where available; see each StepNN.md for details and manual commands.
+Run the steps in order. Use `run-step0N.sh` where available; see each StepNN.md for details and manual commands.
