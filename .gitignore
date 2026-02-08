@@ -1,0 +1,5 @@
+.cursor
+.cache
+.cursor-server
+.bash_history
+*.bak
