@@ -1,6 +1,14 @@
-# Firecracker microVM setup
+#Build a Prison
+## Firecracker microVM setup for jailing workloads
 
-This repo documents a complete setup for running Firecracker microVMs on an AlmaLinux 10 host: one TAP device and a /30 subnet per project, LAN-reachable SSH via a host port (DNAT), key-only auth and metadata-driven bootstrap (Step 5), and optional Envoy TPROXY on the host for egress control (see [ideas/Step06-Envoy-TPROXY.md](ideas/Step06-Envoy-TPROXY.md)).
+This repo documents a complete setup for building and running Firecracker microVMs on an AlmaLinux 10 host.
+The end result is: 
+- one TAP device and a /30 subnet per microVM
+- LAN-reachable SSH via a host port (DNAT)
+
+Work in Progress
+- key-only auth and metadata-driven bootstrap (Step 5)
+- (optional) Envoy TPROXY on the host for egress control (see [ideas/Step06-Envoy-TPROXY.md](ideas/Step06-Envoy-TPROXY.md)).
 
 ## Prerequisites (quick checklist)
 
