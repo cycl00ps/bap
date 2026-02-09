@@ -47,12 +47,11 @@ LAN → Host (DNAT port → guest:22) → FORWARD → TAP → microVM.
 ```mermaid
 flowchart RL
   subgraph host [Host]
-    TAP[tap-project]
+    TAP[DNAT PORT]
     FW[FORWARD]
-    NAT[MASQUERADE]
-    LAN[LAN_IF]
+    NAT[TAP]
   end
-  Developer[machine] --> TAP --> FW --> NAT --> LAN --> VM[microVM]
+  Developer[developer] --> TAP --> FW --> NAT --> VM[microVM]
 ```
 
 ## Egress Traffic flow without Envoy
