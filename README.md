@@ -52,7 +52,7 @@ flowchart RL
     NAT[MASQUERADE]
     LAN[LAN_IF]
   end
-  VM[microVM] --> TAP --> FW --> NAT --> LAN --> Internet[Internet]
+  VM[microVM] --> TAP --> FW --> NAT --> LAN --> VM[microVM]
 ```
 
 ## Egress Traffic flow without Envoy
