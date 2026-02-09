@@ -12,13 +12,15 @@ Work in Progress
 
 ## Prerequisites (quick checklist)
 
+- **Virtualisation Support** Your machine MUST support virtualisation
 - **KVM** and host packages (IP forwarding, firewall, iproute, iptables, etc.) — [Step01.md](Step01.md)
 - **Firecracker and jailer** installed under `/usr/local/bin` and directory layout — [Step02.md](Step02.md)
 - **Networking scripts** (`microvm-net-up.sh` / `microvm-net-down.sh`) and TAP/NAT/SSH port forwarding — [Step03.md](Step03.md)
 
 ## Architecture: multiple microVMs on one host
 
-One host uses a single LAN interface (default route). Each project gets its own TAP device (e.g. `tap-projA`), a /30 from 172.31.0.0/16 (deterministic from project name), one microVM, and one host SSH port (e.g. 22240, 22241, 22242) with DNAT to that guest’s port 22. Developers on the LAN run `ssh -p PORT dev@HOST_IP`; the host DNATs to the correct microVM.
+The host uses a single LAN interface. Each project gets its own TAP device (e.g. `tap-projA`), a /30 from 172.31.0.0/16 (deterministic from project name), one microVM, and one host SSH port (e.g. 22240, 22241, 22242) with DNAT to that guest’s port 22. 
+Developers on the LAN run `ssh -p PORT dev@HOST_IP`; the host DNATs to the correct microVM.
 
 ```mermaid
 flowchart LR
@@ -38,11 +40,24 @@ flowchart LR
   LAN_IF --> Internet[Internet]
 ```
 
-## Traffic flow without Envoy
+## Ingress SSH
+
+LAN → Host (DNAT port → guest:22) → FORWARD → TAP → microVM.
+
+```mermaid
+flowchart RL
+  subgraph host [Host]
+    TAP[tap-project]
+    FW[FORWARD]
+    NAT[MASQUERADE]
+    LAN[LAN_IF]
+  end
+  VM[microVM] --> TAP --> FW --> NAT --> LAN --> Internet[Internet]
+```
+
+## Egress Traffic flow without Envoy
 
 **Egress:** microVM → TAP → FORWARD → MASQUERADE (NAT) → LAN_IF → Internet.
-
-**Ingress (SSH):** LAN → Host (DNAT port → guest:22) → FORWARD → TAP → microVM.
 
 ```mermaid
 flowchart LR
@@ -55,7 +70,7 @@ flowchart LR
   VM[microVM] --> TAP --> FW --> NAT --> LAN --> Internet[Internet]
 ```
 
-## Traffic flow with Envoy TPROXY
+## Egress Traffic flow with Envoy TPROXY
 
 When Envoy TPROXY is enabled (optional), all microVM **egress** is redirected on the host via iptables TPROXY to Envoy, which can enforce policy (e.g. SNI allowlist) before forwarding to the real destination. **Ingress** (SSH to the guest) is unchanged and does not pass through Envoy. Control is entirely at the host; no changes are required inside the guest.
 
