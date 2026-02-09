@@ -8,14 +8,14 @@ The end result is:
 
 Work in Progress
 - key-only auth and metadata-driven bootstrap (Step 5)
-- (optional) Envoy TPROXY on the host for egress control (see [ideas/Step06-Envoy-TPROXY.md](ideas/Step06-Envoy-TPROXY.md)).
+- (optional) Envoy TPROXY on the host for egress control.
 
 ## Prerequisites (quick checklist)
 
 - **Virtualisation Support** Your machine MUST support virtualisation
-- **KVM** and host packages (IP forwarding, firewall, iproute, iptables, etc.) — [Step01.md](Step01.md)
-- **Firecracker and jailer** installed under `/usr/local/bin` and directory layout — [Step02.md](Step02.md)
-- **Networking scripts** (`microvm-net-up.sh` / `microvm-net-down.sh`) and TAP/NAT/SSH port forwarding — [Step03.md](Step03.md)
+- **KVM** and host packages (IP forwarding, firewall, iproute, iptables, etc.)
+- **Firecracker and jailer** installed under `/usr/local/bin` and directory layout
+- **Networking scripts** (`microvm-net-up.sh` / `microvm-net-down.sh`) and TAP/NAT/SSH port forwarding
 
 ## Architecture: multiple microVMs on one host
 
