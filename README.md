@@ -1,4 +1,4 @@
-#Build a Prison
+# Build a Prison
 ## Firecracker microVM setup for jailing workloads
 
 This repo documents a complete setup for building and running Firecracker microVMs on an AlmaLinux 10 host.
