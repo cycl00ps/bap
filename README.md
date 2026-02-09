@@ -7,7 +7,7 @@ The end result is:
 - LAN-reachable SSH via a host port (DNAT)
 
 Work in Progress
-- key-only auth and metadata-driven bootstrap (Step 5)
+- key-only auth and metadata-driven bootstrap
 - (optional) Envoy TPROXY on the host for egress control.
 
 ## Prerequisites (quick checklist)
