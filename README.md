@@ -2,7 +2,7 @@
 ## Firecracker microVM setup for jailing workloads
 
 This repo documents a complete setup for building and running Firecracker microVMs on an AlmaLinux 10 host.
-The end result is: 
+The end result is:
 - one TAP device and a /30 subnet per microVM
 - LAN-reachable SSH via a host port (DNAT)
 
@@ -16,6 +16,10 @@ Work in Progress
 - **KVM** and host packages (IP forwarding, firewall, iproute, iptables, etc.)
 - **Firecracker and jailer** installed under `/usr/local/bin` and directory layout
 - **Networking scripts** (`microvm-net-up.sh` / `microvm-net-down.sh`) and TAP/NAT/SSH port forwarding
+
+## Quick start
+
+Run the steps in order. Use `run-step0N.sh` where available; see each StepNN.md for details and manual commands.
 
 ## Architecture: multiple microVMs on one host
 
@@ -100,7 +104,3 @@ flowchart LR
 - **Step runners:** [run-step01.sh](run-step01.sh) … [run-step05.sh](run-step05.sh) — run or automate the corresponding step (see each StepNN.md for usage).
 - **Networking:** `microvm-net-up.sh` / `microvm-net-down.sh` — create/tear down per-project TAP, NAT, and SSH DNAT (in this directory or installed to `/usr/local/sbin`; see [Step03.md](Step03.md)).
 - **MicroVM management:** [microvm-list-all.sh](microvm-list-all.sh), [microvm-stop-one.sh](microvm-stop-one.sh), [microvm-stop-all.sh](microvm-stop-all.sh), [microvm-cleanup-all.sh](microvm-cleanup-all.sh) — list, stop, or clean up running microVMs.
-
-## Quick start
-
-Run the steps in order. Use `run-step0N.sh` where available; see each StepNN.md for details and manual commands.
